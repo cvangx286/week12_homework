@@ -93,17 +93,27 @@ function buildCharts(sample) {
 
     // 10. Use Plotly to plot the data with the layout. 
     Plotly.newPlot('bar', barData, barLayout);
-  });
+ 
 
   // 1. Create the trace for the bubble chart.
   var bubbleData = {
     x: otu_id.slice(0, 10).reverse(),
     y: sample_values.slice(0, 10).reverse(),
-    hovertext: otu_labels.slice(0,10).reverse(),
+    hovertext: otu_labels.slice(0,10),
     mode: 'markers',
     marker: {
-       color: ['red'],
-       markersize: otu_id
+      // color: ['red','orange', 'blue', 'green','purple','yellow','black','brown','pink', 'turquoise'],
+      markersize: sample_values,
+       size: [10,20,30,50,60,70,80,90,100,110],
+    //setting 'sizeref' to less than 1, increases the rendered marker sizes
+        sizeref: 0.1,
+        sizemode: 'area',
+      markercolor: otu_id,
+        color: [20, 40, 90, 130, 145, 190, 210, 230, 250, 300].reverse(),
+        colorscale: 'Greens',
+        cmin: 0,
+        cmax: 500,
+            
     }
   };
  
@@ -118,6 +128,6 @@ function buildCharts(sample) {
   };
 
   // 3. Use Plotly to plot the data with the layout.
-  Plotly.newPlot('myDiv', data, bubbleLayout);
-
+  Plotly.newPlot('bubble', data, bubbleLayout);
+  });
 }
